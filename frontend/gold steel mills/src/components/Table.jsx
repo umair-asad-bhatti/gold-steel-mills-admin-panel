@@ -11,15 +11,15 @@ export const Table = ({ columns, data,deleteURL }) => {
             <table className="min-w-full bg-white border border-gray-300">
                 <thead className="">
                 <tr>
-                    <th className="px-4 py-2 border border-gray-300"></th>
+                    <th className="px-2 py-1 border border-gray-300"></th>
                     {columns.map((column, index) => (
                         <th
                             key={index}
-                            className="px-4 py-2 border border-gray-300 text-left text-gray-600 uppercase tracking-wider ">
+                            className="px-2 py-1 text-sm border border-gray-300 text-left text-gray-600 uppercase  ">
                             {column}
                         </th>
                     ))}
-                    <th className="px-4 py-2 border border-gray-300">Actions</th>
+                    <th className="px-2 py-1 border border-gray-300">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -37,12 +37,12 @@ export const Table = ({ columns, data,deleteURL }) => {
                         {columns.map((column, colIndex) => (
                             <td
                                 key={colIndex}
-                                className="px-4 border py-2 border-gray-300 text-gray-600">
+                                className="px-2 border py-1 border-gray-300 text-sm text-gray-600">
                                 {column==='createdAt'?new Date(item[column]).toString():item[column]}
                             </td>
                         ))}
                         <td
-                            className="px-4 border py-2 border-gray-300 text-gray-600">
+                            className="px-2 border py-1  border-gray-300 text-gray-600 " >
                          <Button size={'sm'} type={'danger'} title={'Edit'}></Button>
                         </td>
                     </tr>
