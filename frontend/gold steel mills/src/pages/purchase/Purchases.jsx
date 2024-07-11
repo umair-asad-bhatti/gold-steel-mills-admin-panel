@@ -23,7 +23,7 @@ export const Purchases=()=>{
     }=  usePaginationAndFiltering('http://localhost:8080/api/v1/purchases','itemName',ITEMS_PER_PAGE)
 
 
- return <div className="flex flex-col gap-4">
+ return <div className="flex flex-col gap-4 ">
      <PageHeader title={'Purchases'}/>
      <InputField
          value={searchQuery}
