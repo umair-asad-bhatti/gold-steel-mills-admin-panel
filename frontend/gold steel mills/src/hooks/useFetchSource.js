@@ -12,7 +12,7 @@ export const useFetchSource=(url)=>{
                 const { data } = await axios.get(url);
                 setData(data)
                 setIsFetching(false);
-                setIsRefreshed(false)// Set fetching to false after data is fetched
+                setIsRefreshed(false);// Set fetching to false after data is fetched
             } catch (error) {
                 console.error('Error fetching suppliers:', error);
             }

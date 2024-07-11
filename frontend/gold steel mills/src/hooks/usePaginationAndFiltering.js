@@ -26,6 +26,22 @@ export const usePaginationAndFiltering = (url,filterField,ITEMS_PER_PAGE=5 ) => 
         return filteredData.slice(startIndex, endIndex);
     };
 
+
+
+    // Handle previous page button click
+    const goOnPrevPage = () => {
+        if (currentPage === 1) return;
+        setCurrentPage(currentPage - 1);
+    };
+
+    // Handle next page button click
+    const goOnNextPage = () => {
+        const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
+        if (currentPage === totalPages) return;
+        setCurrentPage(currentPage + 1);
+    };
+
+
     return {
         filteredData,
         searchQuery,
@@ -34,6 +50,8 @@ export const usePaginationAndFiltering = (url,filterField,ITEMS_PER_PAGE=5 ) => 
         setCurrentPage,
         getPaginatedData,
         setData,
-        refresh
+        refresh,
+        goOnNextPage,
+        goOnPrevPage
     };
 };

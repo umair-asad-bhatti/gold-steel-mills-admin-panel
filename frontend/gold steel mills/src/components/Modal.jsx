@@ -7,7 +7,7 @@ export const Modal = ({children,title}) => {
 
     return (
         <div className="relative flex justify-center">
-          <Button title={'Add new supplier'} onClickHandler={()=>setIsOpen(true)}></Button>
+          <Button title={title} onClickHandler={()=>setIsOpen(true)}></Button>
 
             {isOpen && (
                 <div

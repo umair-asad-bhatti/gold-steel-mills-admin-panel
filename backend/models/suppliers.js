@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const {  DataTypes } = require('sequelize');
 const {Database}=require('../database/Database')
 
 const supplier = Database.sequelize.define(
@@ -23,6 +23,8 @@ const supplier = Database.sequelize.define(
         // freezeTableName:true
     },
 );
+
+
 
 // `sequelize.define` also returns the model
 module.exports={supplier}

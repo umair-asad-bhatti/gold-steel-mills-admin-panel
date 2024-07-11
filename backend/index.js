@@ -16,7 +16,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use("/api/v1",router);
 
-
+Database.sequelize.sync()
 const port=process.env.SERVER_PORT||8080;
 app.listen(port,function(){
     console.log('server is listening and running on port',port);

@@ -3,7 +3,7 @@ const { Database } = require("../../database/Database");
 const { Validator } = require("../../utils/Validator");
 const { Constants } = require("../../constants/Constants");
 
-const store = async (req, res) => {
+const supplierStore = async (req, res) => {
     try {
         const { firstName, lastName, contactNumber } = req.body;
 
@@ -17,8 +17,6 @@ const store = async (req, res) => {
             return res.status(400).json({ error: 'Provide phone number of exactly 11 digits.' });
         }
 
-        // Create the table if it does not exist
-        await Database.sequelize.sync();
 
         // Check if supplier already exists
         const alreadyExists = await supplier.findOne({
@@ -40,4 +38,4 @@ const store = async (req, res) => {
     }
 };
 
-module.exports = { store };
+module.exports = { supplierStore };
