@@ -19,7 +19,7 @@ export const PurchaseCreate=()=>{
             })
             console.log(res)
             if(res.status===201){
-                alert('Supplier Added successfully..')
+                alert('purchase Added successfully..')
             }
         }catch (e){
             console.log(e)
@@ -39,7 +39,7 @@ export const PurchaseCreate=()=>{
                        Supplier Name
                     </label>
                     <select className={'w-full block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40'} name="supplierInfo" id="supplierInfo">
-                        {data?.map((supplier,index)=>{
+                        {data?.suppliers?.map((supplier,index)=>{
                                 return <option key={index} value={JSON.stringify({firstName:supplier.firstName,id:supplier.id})}>{supplier.firstName}</option>
                         })}
                     </select>

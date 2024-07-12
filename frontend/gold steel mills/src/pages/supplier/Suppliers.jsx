@@ -5,26 +5,24 @@ import { Button } from "../../components/Button.jsx";
 
 import { Modal } from "../../components/Modal.jsx";
 import { SupplierCreate } from "../../components/SupplierCreate.jsx";
-import {usePaginationAndFiltering} from "../../hooks/usePaginationAndFiltering.js";
+
+import {useFetchSource} from "../../hooks/useFetchSource.js";
+import {useState} from "react";
 import {PaginatedButtons} from "../../components/PaginatedButtons.jsx";
 
-const ITEMS_PER_PAGE = 5;
 export const Suppliers = () => {
-
-      const {
-          filteredData,
-          searchQuery,
-          setSearchQuery,
-          currentPage,
-          setCurrentPage,
-          getPaginatedData,
-          setData,
-          refresh,
-          goOnNextPage,
-          goOnPrevPage
-      }=  usePaginationAndFiltering('http://localhost:8080/api/v1/suppliers','firstName',5)
-
-
+    const [pageNumber,setPageNumber]=useState(1);
+    const [searchQuery,setSearchQuery]=useState('')
+    const {data, refresh,isFetching}=useFetchSource(`http://localhost:8080/api/v1/suppliers`,pageNumber,{name:'firstName',value:searchQuery});
+    const goOnPrevPage = () => {
+        if(!isFetching)
+        setPageNumber(pageNumber - 1);
+    };
+    // Handle next page button click
+    const goOnNextPage = () => {
+        if(!isFetching)
+         setPageNumber(pageNumber + 1);
+    };
     return (
         <div className="flex flex-col gap-3">
             <PageHeader title="Suppliers" />
@@ -33,13 +31,14 @@ export const Suppliers = () => {
                 setValue={setSearchQuery}
                 placeholder="Search*"
             />
-            {filteredData.length === 0 ? (
+            {data.length === 0 ? (
                 'No Data Found...'
             ) : (
-                <Table deleteURL={"http://localhost:8080/api/v1/suppliers"} columns={['firstName', 'lastName', 'contactNumber']} data={getPaginatedData()} />
+
+                 <Table deleteURL={"http://localhost:8080/api/v1/suppliers"} columns={['firstName', 'lastName', 'contactNumber']} data={data.suppliers??[]} />
             )}
 
-            <PaginatedButtons currentPage={currentPage} setCurrentPage={setCurrentPage} data={filteredData} ITEMS_PER_PAGE={ITEMS_PER_PAGE} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage}/>
+            <PaginatedButtons hasMore={data?.hasMore} currentPage={pageNumber} setCurrentPage={setPageNumber} totalDataCount={data.total??0} ITEMS_PER_PAGE={10} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage}/>
 
             {/*Footer*/}
             <div className="flex space-x-4">

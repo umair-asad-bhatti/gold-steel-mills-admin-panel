@@ -13,6 +13,6 @@ const purchaseStore=async(req,res)=>{
         itemName:itemName,
         supplierId:id
     })
-    res.json({message:'purchase has been added successfully'})
+    res.status(201).json({message:'purchase has been added successfully'})
 }
 module.exports={purchaseStore}
