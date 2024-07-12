@@ -15,7 +15,7 @@ export const Purchases=()=>{
 
     const [pageNumber,setPageNumber]=useState(1);
     const [searchQuery,setSearchQuery]=useState('')
-    const {data, refresh,isFetching}=useFetchSource(`http://localhost:8080/api/v1/purchases`,pageNumber);
+    const {data, refresh,isFetching}=useFetchSource(`http://localhost:8080/api/v1/purchases`,pageNumber,{name:'supplierName',value:searchQuery});
     const goOnPrevPage = () => {
         if(!isFetching)
             setPageNumber(pageNumber - 1);
