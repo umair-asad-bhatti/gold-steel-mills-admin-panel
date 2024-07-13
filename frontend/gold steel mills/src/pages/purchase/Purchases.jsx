@@ -1,28 +1,28 @@
-import {PageHeader} from "../../components/PageHeader.jsx";
+import { PageHeader } from "../../components/PageHeader.jsx";
 
-import {InputField} from "../../components/InputField.jsx";
-import {Table} from "../../components/Table.jsx";
-import {Button} from "../../components/Button.jsx";
-import {Modal} from "../../components/Modal.jsx";
-import {PaginatedButtons} from "../../components/PaginatedButtons.jsx";
-import {PurchaseCreate} from "../../components/PurchaseCreate.jsx";
-import {useState} from "react";
-import {useFetchSource} from "../../hooks/useFetchSource.js";
-
-
-export const Purchases=()=>{
+import { InputField } from "../../components/InputField.jsx";
+import { Table } from "../../components/Table.jsx";
+import { Button } from "../../components/Button.jsx";
+import { Modal } from "../../components/Modal.jsx";
+import { PaginatedButtons } from "../../components/PaginatedButtons.jsx";
+import { PurchaseCreate } from "../../components/PurchaseCreate.jsx";
+import { useState } from "react";
+import { useFetchSource } from "../../hooks/useFetchSource.js";
 
 
-    const [pageNumber,setPageNumber]=useState(1);
-    const [searchQuery,setSearchQuery]=useState('')
-    const {data, refresh,isFetching}=useFetchSource(`http://localhost:8080/api/v1/purchases`,pageNumber,{name:'supplierName',value:searchQuery});
+export const Purchases = () => {
+
+
+    const [pageNumber, setPageNumber] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('')
+    const { data, refresh, isFetching } = useFetchSource(`http://localhost:8080/api/v1/purchases`, pageNumber, { name: 'supplierName', value: searchQuery });
     const goOnPrevPage = () => {
-        if(!isFetching)
+        if (!isFetching)
             setPageNumber(pageNumber - 1);
     };
     // Handle next page button click
     const goOnNextPage = () => {
-        if(!isFetching)
+        if (!isFetching)
             setPageNumber(pageNumber + 1);
     };
     return (
@@ -37,10 +37,10 @@ export const Purchases=()=>{
                 'No Data Found...'
             ) : (
 
-                <Table deleteURL={""} columns={['supplierName', 'quantity', 'price','itemName','total']} data={data.purchases??[]} />
+                <Table deleteURL={""} columns={['supplierName', 'quantity', 'price', 'itemName', 'total', 'createdAt']} data={data.purchases ?? []} />
             )}
 
-            <PaginatedButtons hasMore={data?.hasMore} currentPage={pageNumber} setCurrentPage={setPageNumber} totalDataCount={data.total??0} ITEMS_PER_PAGE={10} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage}/>
+            <PaginatedButtons hasMore={data?.hasMore} currentPage={pageNumber} setCurrentPage={setPageNumber} totalDataCount={data.total ?? 0} ITEMS_PER_PAGE={10} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage} />
 
             {/*Footer*/}
             <div className="flex space-x-4">

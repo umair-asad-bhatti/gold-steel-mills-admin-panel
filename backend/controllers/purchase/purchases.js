@@ -1,17 +1,17 @@
 const { purchase } = require("../../models/purchase");
 const { Op } = require("sequelize");
-const {supplier} = require("../../models/suppliers");
+const { supplier } = require("../../models/suppliers");
 const ITEMS_PER_PAGE = 10;
 
 const purchases = async (req, res) => {
     try {
         const { page, supplierName } = req.query; //supplierName is to search purchases by supplier name
-        if(!page&&!supplierName){
-            let purchases= await purchase.findAll();
-            let  total=await supplier.count();
+        if (!page && !supplierName) {
+            let purchases = await purchase.findAll();
+            let total = await supplier.count();
             return res.json({
                 purchases,
-                hasMore:false,
+                hasMore: false,
                 total
             })
         }
@@ -26,7 +26,8 @@ const purchases = async (req, res) => {
         // Create a base query object
         const query = {
             limit: ITEMS_PER_PAGE,
-            offset
+            offset,
+            order: [['createdAt', 'DESC']]
         };
 
         // Add the where clause if supplierName is provided

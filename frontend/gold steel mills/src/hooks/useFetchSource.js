@@ -29,7 +29,7 @@ export const useFetchSource = (url, pageNumber = null, searchQuery = null) => {
         };
 
         fetchData();
-    }, [pageNumber, JSON.stringify(searchQuery), url]); // Use JSON.stringify for searchQuery
+    }, [pageNumber, JSON.stringify(searchQuery), url, isRefreshed]); // Use JSON.stringify for searchQuery
 
     const refresh = () => {
         setData({}); // Reset data on refresh

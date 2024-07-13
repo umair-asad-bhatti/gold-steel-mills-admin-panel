@@ -1,5 +1,4 @@
 const { supplier } = require("../../models/suppliers");
-const { Database } = require("../../database/Database");
 const { Op } = require("sequelize");
 const ITEMS_PER_PAGE = 10;
 
