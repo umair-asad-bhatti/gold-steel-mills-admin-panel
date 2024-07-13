@@ -12,13 +12,11 @@ export const useFetchSource = (url, pageNumber = null, searchQuery = null) => {
             try {
                 let fetchUrl = url;
                 setIsFetching(true);
-
                 if (searchQuery && pageNumber) {
                     fetchUrl = `${url}?page=${pageNumber}&${searchQuery.name}=${searchQuery.value}`;
                 } else if (pageNumber) {
                     fetchUrl = `${url}?page=${pageNumber}`;
                 }
-
                 const response = await axios.get(fetchUrl);
                 setData(response.data);
             } catch (err) {
