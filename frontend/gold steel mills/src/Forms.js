@@ -40,6 +40,13 @@ export class Forms{
             placeholder:'Item Quantity*',
             type:'number'
         },
+        {
+            label:'Kaat',
+            name:'kaat',
+            placeholder:'kaat(if any)*',
+            type:'number',
+
+        },
     ]
 
 

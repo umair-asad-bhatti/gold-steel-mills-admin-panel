@@ -8,7 +8,7 @@ const purchases = async (req, res) => {
         const { page, supplierName } = req.query; //supplierName is to search purchases by supplier name
         if (!page && !supplierName) {
             let purchases = await purchase.findAll();
-            let total = await supplier.count();
+            let total = await purchase.count();
             return res.json({
                 purchases,
                 hasMore: false,
@@ -30,7 +30,7 @@ const purchases = async (req, res) => {
             order: [['createdAt', 'DESC']]
         };
 
-        // Add the where clause if supplierName is provided
+        // Add the where clause if supplierName of the purchase is provided
         if (supplierName && supplierName.length > 0) {
             query.where = {
                 supplierName: { [Op.iLike]: `%${supplierName}%` }

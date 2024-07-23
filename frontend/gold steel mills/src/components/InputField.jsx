@@ -1,8 +1,9 @@
 // eslint-disable-next-line react/prop-types
-export const InputField=({placeholder,value,setValue})=>{
+export const InputField=({placeholder,value,setValue,name=null})=>{
     return (
         <div>
             <input
+                name={name??''}
                 value={value}
                 onChange={(e)=> {
                     setValue(e.target.value)

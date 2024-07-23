@@ -6,27 +6,28 @@ import axios from "axios";
 
 export const PurchaseCreate=()=>{
     const [error,setError]=useState('')
-    const {data}=useFetchSource('http://localhost:8080/api/v1/suppliers');
+    const {data}=useFetchSource('suppliers');
     const handlePurchaseCreate=async (e)=>{
         try {
             e.preventDefault()
             const formData=new FormData(e.currentTarget)
-            const res=await axios.post("http://localhost:8080/api/v1/purchase/store",{
+            const res=await axios.post("purchase/store",{
                 supplierInfo:JSON.parse(formData.get('supplierInfo')),
                 quantity:formData.get('quantity'),
                 price:formData.get('price'),
                 itemName:formData.get('itemName'),
+                kaat:formData.get('kaat')
             })
-            console.log(res)
+
             if(res.status===201){
                 alert('purchase Added successfully..')
             }
         }catch (e){
             console.log(e)
-            // setError(e.response.data.error)
-            // setTimeout(()=>{
-            //     setError('')
-            // },3000)
+            setError(e.response.data.error)
+            setTimeout(()=>{
+                setError('')
+            },3000)
         }
     }
     return (
@@ -51,6 +52,7 @@ export const PurchaseCreate=()=>{
                                 {field.label}
                             </label>
                             <input
+
                                 name={field.name}
                                 type={field.type}
                                 placeholder={field.placeholder}

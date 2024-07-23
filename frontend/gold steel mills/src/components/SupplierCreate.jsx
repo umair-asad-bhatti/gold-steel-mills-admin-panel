@@ -9,7 +9,7 @@ export const SupplierCreate = () => {
 
             e.preventDefault()
             const formData=new FormData(e.currentTarget)
-            const res=await axios.post("http://localhost:8080/api/v1/supplier/store",{
+            const res=await axios.post("supplier/store",{
                 firstName:formData.get('firstName'),
                 lastName:formData.get('lastName'),
                 contactNumber:formData.get('contactNumber')

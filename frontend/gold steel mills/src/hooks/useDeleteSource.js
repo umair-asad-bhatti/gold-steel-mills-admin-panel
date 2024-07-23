@@ -23,7 +23,7 @@ export function useDeleteSource(url) {
          const res= await axios.delete(url,{data:{
                  id:sourcesToBeDeleted
              }});
-      alert("supplier deleted")
+      alert("Data has been deleted")
      }catch (e){
          alert(e.response.data.error)
      }

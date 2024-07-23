@@ -9,11 +9,15 @@ import { SupplierCreate } from "../../components/SupplierCreate.jsx";
 import {useFetchSource} from "../../hooks/useFetchSource.js";
 import {useState} from "react";
 import {PaginatedButtons} from "../../components/PaginatedButtons.jsx";
+import { useNavigate } from "react-router-dom";
 
 export const Suppliers = () => {
     const [pageNumber,setPageNumber]=useState(1);
     const [searchQuery,setSearchQuery]=useState('')
-    const {data, refresh,isFetching}=useFetchSource(`http://localhost:8080/api/v1/suppliers`,pageNumber,{name:'firstName',value:searchQuery});
+    const {data, refresh,isFetching}=useFetchSource(`suppliers`,pageNumber,{name:'firstName',value:searchQuery});
+
+    const navigate = useNavigate();
+
     const goOnPrevPage = () => {
         if(!isFetching)
         setPageNumber(pageNumber - 1);
@@ -23,6 +27,10 @@ export const Suppliers = () => {
         if(!isFetching)
          setPageNumber(pageNumber + 1);
     };
+
+    const handleNavigation=(data)=>{
+        navigate("/supplier/edit",{ state: data})
+    }
     return (
         <div className="flex flex-col gap-3">
             <PageHeader title="Suppliers" />
@@ -35,7 +43,7 @@ export const Suppliers = () => {
                 'No Data Found...'
             ) : (
 
-                 <Table deleteURL={"http://localhost:8080/api/v1/suppliers"} columns={['firstName', 'lastName', 'contactNumber']} data={data.suppliers??[]} />
+                 <Table handleNavigation={handleNavigation} deleteURL={"suppliers"} columns={['firstName', 'lastName', 'contactNumber']} data={data.suppliers??[]} />
             )}
 
             <PaginatedButtons hasMore={data?.hasMore} currentPage={pageNumber} setCurrentPage={setPageNumber} totalDataCount={data.total??0} ITEMS_PER_PAGE={10} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage}/>

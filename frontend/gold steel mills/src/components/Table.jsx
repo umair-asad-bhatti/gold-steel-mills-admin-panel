@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
 import { useDeleteSource } from "../hooks/useDeleteSource.js";
 import {Button} from "./Button.jsx";
 
-export const Table = ({ columns, data,deleteURL }) => {
+// eslint-disable-next-line react/prop-types
+export const Table = ({ columns, data,deleteURL,handleNavigation }) => {
     const { handleDelete, isAnySourceSelected, handleSourceSelectionChange,isChecked } = useDeleteSource(deleteURL);
 
     return (
@@ -43,7 +43,7 @@ export const Table = ({ columns, data,deleteURL }) => {
                         ))}
                         <td
                             className="px-2 border py-1  border-gray-300 text-gray-600 " >
-                         <Button size={'sm'} type={'danger'} title={'Edit'}></Button>
+                         <Button onClickHandler={()=>handleNavigation(item)} size={'sm'} type={'danger'} title={'Edit'}></Button>
                         </td>
                     </tr>
                 ))}

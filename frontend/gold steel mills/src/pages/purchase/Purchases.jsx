@@ -8,14 +8,16 @@ import { PaginatedButtons } from "../../components/PaginatedButtons.jsx";
 import { PurchaseCreate } from "../../components/PurchaseCreate.jsx";
 import { useState } from "react";
 import { useFetchSource } from "../../hooks/useFetchSource.js";
+import {useNavigate} from "react-router-dom";
 
 
 export const Purchases = () => {
 
 
     const [pageNumber, setPageNumber] = useState(1);
+    const navigate=useNavigate()
     const [searchQuery, setSearchQuery] = useState('')
-    const { data, refresh, isFetching } = useFetchSource(`http://localhost:8080/api/v1/purchases`, pageNumber, { name: 'supplierName', value: searchQuery });
+    const { data, refresh, isFetching } = useFetchSource(`purchases`, pageNumber, { name: 'supplierName', value: searchQuery });
     const goOnPrevPage = () => {
         if (!isFetching)
             setPageNumber(pageNumber - 1);
@@ -25,6 +27,9 @@ export const Purchases = () => {
         if (!isFetching)
             setPageNumber(pageNumber + 1);
     };
+    const handleNavigation=(data)=>{
+      navigate('/purchase/edit',{ state: data})
+    }
     return (
         <div className="flex flex-col gap-3">
             <PageHeader title="Suppliers" />
@@ -37,7 +42,7 @@ export const Purchases = () => {
                 'No Data Found...'
             ) : (
 
-                <Table deleteURL={""} columns={['supplierName', 'quantity', 'price', 'itemName', 'total', 'createdAt']} data={data.purchases ?? []} />
+                <Table handleNavigation={handleNavigation} deleteURL={"purchases"} columns={['supplierName', 'itemName','quantity', 'price','kaat',  'total', 'createdAt']} data={data.purchases ?? []} />
             )}
 
             <PaginatedButtons hasMore={data?.hasMore} currentPage={pageNumber} setCurrentPage={setPageNumber} totalDataCount={data.total ?? 0} ITEMS_PER_PAGE={10} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage} />
@@ -50,7 +55,7 @@ export const Purchases = () => {
                     </svg>
                 </Button>
                 {/* Add new supplier modal */}
-                <Modal title="Add New Supplier">
+                <Modal title="Add New Purchase">
                     <PurchaseCreate />
                 </Modal>
             </div>

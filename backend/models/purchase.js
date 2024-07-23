@@ -21,6 +21,11 @@ const purchase = Database.sequelize.define(
             type:DataTypes.STRING,
             allowNull:false
         },
+        kaat:{
+            type:DataTypes.INTEGER,
+
+            default:0
+        },
         total:{
             type:DataTypes.INTEGER,
             allowNull:false

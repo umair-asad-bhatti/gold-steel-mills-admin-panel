@@ -15,4 +15,9 @@ export const routes = [
         icon: RiseOutlined ,
         routeURL:'/purchases'
     },
+    {
+        name: 'Login',
+        icon: RiseOutlined ,
+        routeURL:'/auth/login'
+    },
 ];

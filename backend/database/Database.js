@@ -7,6 +7,7 @@ class Database{
                 port:config.port,
                 dialect: config.dialect
             });
+
     }
 }
 

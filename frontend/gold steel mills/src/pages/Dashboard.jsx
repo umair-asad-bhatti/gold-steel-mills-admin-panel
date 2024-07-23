@@ -1,7 +1,10 @@
 import {PageHeader} from "../components/PageHeader.jsx";
 import {Bar} from 'react-chartjs-2'
 import {Chart } from 'chart.js/auto'
+//include the header in axios defaults
 export const Dashboard=()=>{
+
+
     return (
         <div>
             <PageHeader title={'Dashboard'}/>

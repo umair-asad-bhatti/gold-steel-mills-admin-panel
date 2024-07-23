@@ -12,11 +12,10 @@ const supplierStore = async (req, res) => {
             return res.status(400).json({ error: 'Provide first and last name of minimum 3 and maximum 15 characters.' });
         }
 
-        // Validate contact number
+        // Validate contact number length
         if (!Validator.string(contactNumber, 11, 11)) {
             return res.status(400).json({ error: 'Provide phone number of exactly 11 digits.' });
         }
-
 
         // Check if supplier already exists
         const alreadyExists = await supplier.findOne({
