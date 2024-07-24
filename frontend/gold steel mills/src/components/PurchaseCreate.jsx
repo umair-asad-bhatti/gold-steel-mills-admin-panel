@@ -1,33 +1,33 @@
 
-import React, {useState} from "react";
-import {useFetchSource} from "../hooks/useFetchSource.js";
-import {Forms} from "../Forms.js";
+import React, { useState } from "react";
+import { useFetchSource } from "../hooks/useFetchSource.js";
+import { Forms } from "../Forms.js";
 import axios from "axios";
 
-export const PurchaseCreate=()=>{
-    const [error,setError]=useState('')
-    const {data}=useFetchSource('suppliers');
-    const handlePurchaseCreate=async (e)=>{
+export const PurchaseCreate = () => {
+    const [error, setError] = useState('')
+    const { data } = useFetchSource('suppliers');
+    const handlePurchaseCreate = async (e) => {
         try {
             e.preventDefault()
-            const formData=new FormData(e.currentTarget)
-            const res=await axios.post("purchase/store",{
-                supplierInfo:JSON.parse(formData.get('supplierInfo')),
-                quantity:formData.get('quantity'),
-                price:formData.get('price'),
-                itemName:formData.get('itemName'),
-                kaat:formData.get('kaat')
+            const formData = new FormData(e.currentTarget)
+            const res = await axios.post("purchase/store", {
+                supplierInfo: JSON.parse(formData.get('supplierInfo')),
+                quantity: formData.get('quantity'),
+                price: formData.get('price'),
+                itemName: formData.get('itemName'),
+                kaat: formData.get('kaat')
             })
 
-            if(res.status===201){
+            if (res.status === 201) {
                 alert('purchase Added successfully..')
             }
-        }catch (e){
+        } catch (e) {
             console.log(e)
             setError(e.response.data.error)
-            setTimeout(()=>{
+            setTimeout(() => {
                 setError('')
-            },3000)
+            }, 3000)
         }
     }
     return (
@@ -37,22 +37,22 @@ export const PurchaseCreate=()=>{
             <form onSubmit={handlePurchaseCreate}>
                 <div className="mb-4">
                     <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                       Supplier Name
+                        Supplier Name
                     </label>
                     <select className={'w-full block mt-2 w-full placeholder-gray-400/70 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40'} name="supplierInfo" id="supplierInfo">
-                        {data?.suppliers?.map((supplier,index)=>{
-                                return <option key={index} value={JSON.stringify({firstName:supplier.firstName,id:supplier.id})}>{supplier.firstName}</option>
+                        {data?.suppliers?.map((supplier, index) => {
+                            return <option key={index} value={JSON.stringify({ firstName: supplier.firstName, id: supplier.id })}>{supplier.firstName}</option>
                         })}
                     </select>
                 </div>
                 {
-                    Forms.PURCHASE_CREATE.map((field,index)=>{
+                    Forms.PURCHASE_CREATE.map((field, index) => {
                         return <div key={index} className="mb-4">
                             <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
                                 {field.label}
                             </label>
                             <input
-
+                                min={0}
                                 name={field.name}
                                 type={field.type}
                                 placeholder={field.placeholder}
@@ -71,7 +71,7 @@ export const PurchaseCreate=()=>{
                     <div className={'h-10'}>
 
                         {
-                            error.length?<h1 className={'p-2 text-sm text-red-500'}>{error}</h1>:''
+                            error.length ? <h1 className={'p-2 text-sm text-red-500'}>{error}</h1> : ''
                         }
                     </div>
                 </div>

@@ -1,23 +1,19 @@
-import {HomeOutlined, RiseOutlined, UserSwitchOutlined} from "@ant-design/icons";
+import { HomeOutlined, RiseOutlined, UserSwitchOutlined } from "@ant-design/icons";
 
 export const routes = [
     {
         name: 'Dashboard',
         icon: HomeOutlined,
-        routeURL:'/'
+        routeURL: '/'
     },
     {
         name: 'Suppliers',
         icon: UserSwitchOutlined,
-        routeURL:'/suppliers'
+        routeURL: '/suppliers'
     }, {
         name: 'Purchases',
-        icon: RiseOutlined ,
-        routeURL:'/purchases'
+        icon: RiseOutlined,
+        routeURL: '/purchases'
     },
-    {
-        name: 'Login',
-        icon: RiseOutlined ,
-        routeURL:'/auth/login'
-    },
+
 ];

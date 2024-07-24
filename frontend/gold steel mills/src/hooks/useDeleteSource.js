@@ -1,10 +1,10 @@
-import {useState,useEffect} from 'react'
+import { useState, useEffect } from 'react'
 import axios from "axios";
 export function useDeleteSource(url) {
 
     const [isAnySourceSelected, setIsAnySourceSelected] = useState(false)
     const [sourcesToBeDeleted, setSourcesToBeDeleted] = useState([])
-    const handleSourceSelectionChange = (event,itemId) => {
+    const handleSourceSelectionChange = (event, itemId) => {
         const { checked } = event.target;
         if (checked) {
             setSourcesToBeDeleted([...sourcesToBeDeleted, itemId]);
@@ -17,16 +17,18 @@ export function useDeleteSource(url) {
         sourcesToBeDeleted.length > 0 ? setIsAnySourceSelected(true) : setIsAnySourceSelected(false)
     }, [sourcesToBeDeleted])
 
-    const handleDelete = async() => {
+    const handleDelete = async () => {
 
-     try {
-         const res= await axios.delete(url,{data:{
-                 id:sourcesToBeDeleted
-             }});
-      alert("Data has been deleted")
-     }catch (e){
-         alert(e.response.data.error)
-     }
+        try {
+            await axios.delete(url, {
+                data: {
+                    id: sourcesToBeDeleted
+                }
+            });
+            alert("Data has been deleted")
+        } catch (e) {
+            alert(e.response.data.error)
+        }
     }
-    return {handleSourceSelectionChange, isAnySourceSelected, handleDelete,isChecked}
+    return { handleSourceSelectionChange, isAnySourceSelected, handleDelete, isChecked }
 }

@@ -8,14 +8,14 @@ import { PaginatedButtons } from "../../components/PaginatedButtons.jsx";
 import { PurchaseCreate } from "../../components/PurchaseCreate.jsx";
 import { useState } from "react";
 import { useFetchSource } from "../../hooks/useFetchSource.js";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export const Purchases = () => {
 
 
     const [pageNumber, setPageNumber] = useState(1);
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [searchQuery, setSearchQuery] = useState('')
     const { data, refresh, isFetching } = useFetchSource(`purchases`, pageNumber, { name: 'supplierName', value: searchQuery });
     const goOnPrevPage = () => {
@@ -27,12 +27,12 @@ export const Purchases = () => {
         if (!isFetching)
             setPageNumber(pageNumber + 1);
     };
-    const handleNavigation=(data)=>{
-      navigate('/purchase/edit',{ state: data})
+    const handleNavigation = (data) => {
+        navigate('/purchase/edit', { state: data })
     }
     return (
         <div className="flex flex-col gap-3">
-            <PageHeader title="Suppliers" />
+            <PageHeader title="Purchases" />
             <InputField
                 value={searchQuery}
                 setValue={setSearchQuery}
@@ -42,7 +42,7 @@ export const Purchases = () => {
                 'No Data Found...'
             ) : (
 
-                <Table handleNavigation={handleNavigation} deleteURL={"purchases"} columns={['supplierName', 'itemName','quantity', 'price','kaat',  'total', 'createdAt']} data={data.purchases ?? []} />
+                <Table handleNavigation={handleNavigation} deleteURL={"purchases"} columns={['supplierName', 'itemName', 'quantity', 'price', 'kaat', 'total', 'createdAt']} data={data.purchases ?? []} />
             )}
 
             <PaginatedButtons hasMore={data?.hasMore} currentPage={pageNumber} setCurrentPage={setPageNumber} totalDataCount={data.total ?? 0} ITEMS_PER_PAGE={10} goOnNextPage={goOnNextPage} goOnPrevPage={goOnPrevPage} />
